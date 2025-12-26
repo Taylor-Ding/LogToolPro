@@ -92,4 +92,4 @@ jobs:
           releaseBody: 'See the assets to download this version and install.'
           releaseDraft: true
           prerelease: false
-          args: ${{ matrix.args }}
+          args: ${{ matrix.args == '--target aarch64-unknown-linux-gnu' && '--target aarch64-unknown-linux-gnu --bundles deb,rpm' || matrix.args }}
