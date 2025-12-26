@@ -36,19 +36,20 @@ jobs:
           if [[ "${{ matrix.args }}" == *"--target aarch64-unknown-linux-gnu"* ]]; then
             sudo dpkg --add-architecture arm64
             
-            # Completely overwrite sources.list to be safe
-            echo "deb [arch=amd64] http://archive.ubuntu.com/ubuntu/ jammy main restricted universe multiverse" | sudo tee /etc/apt/sources.list
-            echo "deb [arch=amd64] http://archive.ubuntu.com/ubuntu/ jammy-updates main restricted universe multiverse" | sudo tee -a /etc/apt/sources.list
-            echo "deb [arch=amd64] http://archive.ubuntu.com/ubuntu/ jammy-backports main restricted universe multiverse" | sudo tee -a /etc/apt/sources.list
-            echo "deb [arch=amd64] http://security.ubuntu.com/ubuntu/ jammy-security main restricted universe multiverse" | sudo tee -a /etc/apt/sources.list
+            # Remove ALL existing apt sources (including DEB822 .sources files)
+            sudo rm -f /etc/apt/sources.list.d/*
             
-            echo "deb [arch=arm64] http://ports.ubuntu.com/ubuntu-ports/ jammy main restricted universe multiverse" | sudo tee -a /etc/apt/sources.list
-            echo "deb [arch=arm64] http://ports.ubuntu.com/ubuntu-ports/ jammy-updates main restricted universe multiverse" | sudo tee -a /etc/apt/sources.list
-            echo "deb [arch=arm64] http://ports.ubuntu.com/ubuntu-ports/ jammy-backports main restricted universe multiverse" | sudo tee -a /etc/apt/sources.list
-            echo "deb [arch=arm64] http://ports.ubuntu.com/ubuntu-ports/ jammy-security main restricted universe multiverse" | sudo tee -a /etc/apt/sources.list
-            
-            # Clean up other sources that might conflict
-            sudo rm -f /etc/apt/sources.list.d/*.list
+            # Completely overwrite sources.list with explicit arch specification
+            sudo tee /etc/apt/sources.list << EOF
+          deb [arch=amd64] http://archive.ubuntu.com/ubuntu/ jammy main restricted universe multiverse
+          deb [arch=amd64] http://archive.ubuntu.com/ubuntu/ jammy-updates main restricted universe multiverse
+          deb [arch=amd64] http://archive.ubuntu.com/ubuntu/ jammy-backports main restricted universe multiverse
+          deb [arch=amd64] http://security.ubuntu.com/ubuntu/ jammy-security main restricted universe multiverse
+          deb [arch=arm64] http://ports.ubuntu.com/ubuntu-ports/ jammy main restricted universe multiverse
+          deb [arch=arm64] http://ports.ubuntu.com/ubuntu-ports/ jammy-updates main restricted universe multiverse
+          deb [arch=arm64] http://ports.ubuntu.com/ubuntu-ports/ jammy-backports main restricted universe multiverse
+          deb [arch=arm64] http://ports.ubuntu.com/ubuntu-ports/ jammy-security main restricted universe multiverse
+          EOF
 
             sudo apt-get update
             sudo apt-get install -y gcc-aarch64-linux-gnu pkg-config
