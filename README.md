@@ -85,6 +85,67 @@ npm run tauri dev
 npm run tauri build
 ```
 
+## 多平台构建与发布指南 (Build & Release)
+
+### 1. 自动化构建 (GitHub Actions) - 推荐
+
+本项目已配置 GitHub Actions 自动工作流，支持多平台自动打包与发布。
+
+- **支持平台**:
+  - Windows (x64, arm64)
+  - macOS (Apple Silicon, Intel) - *注: Intel 构建依赖 macOS 13 runner*
+  - Linux (x64/Debian-based)
+
+- **触发方式**:
+  推送一个以 `v` 开头的 Tag 即可触发自动构建发布流程。
+  ```bash
+  git tag v0.1.0
+  git push origin v0.1.0
+  ```
+  构建完成后，Release 页会自动生成对应平台的安装包。
+
+### 2. 本地手动构建 (Local Build)
+
+若需在本地手动构建特定平台的安装包，请确保环境满足以下要求：
+
+#### macOS (Apple Silicon & Intel)
+无需额外配置，直接运行：
+```bash
+npm run tauri build
+```
+打包输出路径: `src-tauri/target/release/bundle/`
+
+#### Windows
+- **环境**: Windows 10/11
+- **依赖**: 
+  - [Microsoft Visual Studio C++ 构建工具](https://visualstudio.microsoft.com/visual-cpp-build-tools/)
+  - [Webview2](https://developer.microsoft.com/microsoft-edge/webview2/) (通常已内置)
+- **命令**:
+```powershell
+npm run tauri build
+```
+*注: Windows 上生成的 `.msi` 安装包依赖 WiX Toolset (v3)，Tauri CLI 会尝试自动安装，如失败请手动安装。*
+
+#### Linux (Debian/Ubuntu)
+- **依赖**:
+```bash
+sudo apt-get update
+sudo apt-get install libwebkit2gtk-4.0-dev \
+    build-essential \
+    curl \
+    wget \
+    file \
+    libssl-dev \
+    libgtk-3-dev \
+    libayatana-appindicator3-dev \
+    librsvg2-dev
+```
+- **命令**:
+```bash
+npm run tauri build
+```
+打包输出: AppImage 和 .deb 包。
+
 ## 推荐 IDE 设置
 
 - [VS Code](https://code.visualstudio.com/)
