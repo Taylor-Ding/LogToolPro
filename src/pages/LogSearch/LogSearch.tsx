@@ -126,7 +126,7 @@ export function LogSearch() {
         children: ServerChainNode[];
     }
     const [serverChainTraceId, setServerChainTraceId] = useState('');
-    const [serverChainLogPath, setServerChainLogPath] = useState('/app/log');
+    const [serverChainLogPath, setServerChainLogPath] = useState('/app/appuser/logs');
     const [serverChainSelectedServers, setServerChainSelectedServers] = useState<ServerInfo[]>([]);
     const [serverChainNodes, setServerChainNodes] = useState<ServerChainNode[]>([]);
     const [serverChainLogs, setServerChainLogs] = useState<string[]>([]);
@@ -1322,7 +1322,7 @@ export function LogSearch() {
                                                 className="font-mono"
                                                 value={serverChainLogPath}
                                                 onChange={(e) => setServerChainLogPath(e.target.value)}
-                                                placeholder="/app/log"
+                                                placeholder="/app/appuser/logs"
                                             />
                                         </div>
                                     </div>
