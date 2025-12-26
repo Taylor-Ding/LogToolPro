@@ -1,7 +1,8 @@
 // Mock API base URL - replace with production URL when ready
 // Current: Mock environment
 // Production: Replace the entire base URL below
-export const API_BASE_URL = 'http://127.0.0.1:4523/m1/4283432-3925564-default';
+// export const API_BASE_URL = 'http://127.0.0.1:4523/m1/4283432-3925564-default';
+export const API_BASE_URL = 'http://20.198.22.11:8050';
 
 // API endpoints
 export const API_ENDPOINTS = {
