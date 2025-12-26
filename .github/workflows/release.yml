@@ -30,6 +30,8 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: install dependencies (ubuntu only)
+        if: matrix.platform == 'ubuntu-22.04'
         run: |
           if [[ "${{ matrix.args }}" == *"--target aarch64-unknown-linux-gnu"* ]]; then
             # Fix sources for arm64 on Ubuntu
