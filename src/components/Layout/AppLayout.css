@@ -1,0 +1,16 @@
+.app-layout {
+    display: flex;
+    width: 100%;
+    /* Changed from 100vw to 100% to avoid scrollbar width issues */
+    height: 100vh;
+    overflow: hidden;
+    background-color: var(--color-bg-dark);
+}
+
+.main-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    position: relative;
+}

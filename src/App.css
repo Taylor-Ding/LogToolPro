@@ -1,0 +1,11 @@
+/* 
+  Legacy styles cleared. 
+  Global styles are now managed in variables.css
+  Component styles are managed in individual component CSS files.
+*/
+.logo {
+  height: 6em;
+  padding: 1.5em;
+  will-change: filter;
+  transition: filter 300ms;
+}
